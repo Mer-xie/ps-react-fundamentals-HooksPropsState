@@ -1,23 +1,13 @@
-import React, { useState } from "react";
+import loadingStatus from "../helpers/loadingStatus";
+import useHouses from "../hooks/useHouses";
 import HouseRow from "./houseRow";
-
-const houseArray = [
-  {
-    id: 1,
-    address: "12 Valley of Kings, Geneva",
-    country: "Switzerland",
-    price: 900000,
-  },
-  {
-    id: 2,
-    address: "89 Road of Forks, Bern",
-    country: "Switzerland",
-    price: 500000,
-  },
-];
+import LoadingIndicator from "./loadingIndicator";
 
 const HouseList = () => {
-  const [houses, setHouses] = useState(houseArray);
+  const { houses, setHouses, loadingState } = useHouses();
+
+  if (loadingState !== loadingStatus.loaded)
+    return <LoadingIndicator loadingState={loadingState} />;
 
   const addHouse = () => {
     setHouses([
